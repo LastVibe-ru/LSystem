@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SkySys:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SkySys_jar</output-path>
+    <root id="archive" name="SkySys.jar">
+      <element id="module-output" name="SkySys" />
+    </root>
+  </artifact>
+</component>
