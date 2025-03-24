@@ -1,26 +1,32 @@
 package com.karpen.skySys;
 
+import com.maximde.entitysize.EntityModifierService;
+import com.maximde.entitysize.EntitySize;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public final class SkySys extends JavaPlugin {
+public final class SkySys extends JavaPlugin implements TabCompleter {
 
     private final Map<Player, ItemStack[]> inv = new HashMap<>();
 
     @Override
     public void onEnable() {
         getLogger().info("SkySys v1.0");
+
+        Objects.requireNonNull(getCommand("size")).setTabCompleter(this);
+        Objects.requireNonNull(getCommand("check")).setTabCompleter(this);
+        Objects.requireNonNull(getCommand("check-stop")).setTabCompleter(this);
     }
 
     @Override
@@ -115,17 +121,75 @@ public final class SkySys extends JavaPlugin {
             return true;
         }
 
-        if (command.getName().equalsIgnoreCase("website")){
-            if (!(sender instanceof  Player)){
-                sender.sendMessage(ChatColor.RED + "Эту команду может выполнять только игрок");
+        if (command.getName().equalsIgnoreCase("size")){
+            if (args.length != 1){
+                sender.sendMessage(ChatColor.RED + "Используйте /size < big | normal | min >");
+
+                return true;
+            }
+
+            if (!(sender instanceof Player)){
+                sender.sendMessage(ChatColor.RED + "Эту команду может юзать только игрок");
+
                 return true;
             }
 
             Player player = (Player) sender;
-            player.sendMessage("§x§3§3§A§5§D§3Н§x§3§1§A§2§C§Eа§x§2§F§9§F§C§Aш §x§2§D§9§C§C§5с§x§2§B§9§A§C§0а§x§2§9§9§7§B§Bй§x§2§6§9§4§B§7т §x§2§4§9§1§B§2h§x§2§2§8§E§A§Dt§x§2§0§8§B§A§8t§x§1§E§8§8§A§4p§x§1§C§8§5§9§Fs§x§1§A§8§3§9§A:§x§1§8§8§0§9§5/§x§1§6§7§D§9§1/§x§1§4§7§A§8§Cs§x§1§2§7§7§8§7k§x§1§0§7§4§8§2y§x§0§D§7§1§7§Eu§x§0§B§6§E§7§9p§x§0§9§6§C§7§4.§x§0§7§6§9§6§Fs§x§0§5§6§6§6§Bu§x§0§3§6§3§6§6/");
 
-            return true;
+            Optional<EntityModifierService> modifierService = EntitySize.getSizeService();
+
+            if (args[1].equalsIgnoreCase("min")){
+                modifierService.get().setSize(player, 0.88);
+
+                return true;
+            }
+
+            if (args[1].equalsIgnoreCase("normal")){
+                modifierService.get().resetSize(player);
+
+                return true;
+            }
+
+            if (args[1].equalsIgnoreCase("big")){
+                modifierService.get().setSize(player, 1.2);
+
+                return true;
+            }
         }
+
+        if (command.getName().equalsIgnoreCase("ncolor")){
+            if (!(sender instanceof Player)){
+                sender.sendMessage(ChatColor.RED + "Эту команду может юзать только игрок");
+
+                return true;
+            }
+
+            Player player = (Player) sender;
+
+
+        }
+
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> suggestions = new ArrayList<>();
+
+        if (args.length == 1){
+            if (command.getName().equalsIgnoreCase("check") || command.getName().equalsIgnoreCase("check-stop")){
+                for (var player : Bukkit.getOnlinePlayers()){
+                    suggestions.add(player.getName());
+                }
+            }
+
+            if (command.getName().equalsIgnoreCase("size")){
+                suggestions.add("min");
+                suggestions.add("normal");
+                suggestions.add("big");
+            }
+        }
+
+        return suggestions;
     }
 }
