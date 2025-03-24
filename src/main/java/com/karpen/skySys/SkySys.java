@@ -138,19 +138,19 @@ public final class SkySys extends JavaPlugin implements TabCompleter {
 
             Optional<EntityModifierService> modifierService = EntitySize.getSizeService();
 
-            if (args[1].equalsIgnoreCase("min")){
+            if (args[0].equalsIgnoreCase("min")){
                 modifierService.get().setSize(player, 0.88);
 
                 return true;
             }
 
-            if (args[1].equalsIgnoreCase("normal")){
+            if (args[0].equalsIgnoreCase("normal")){
                 modifierService.get().resetSize(player);
 
                 return true;
             }
 
-            if (args[1].equalsIgnoreCase("big")){
+            if (args[0].equalsIgnoreCase("big")){
                 modifierService.get().setSize(player, 1.2);
 
                 return true;

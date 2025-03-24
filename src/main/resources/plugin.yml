@@ -1,11 +1,8 @@
 name: SkySys
-version: '1.0.0'
+version: '1.1'
 main: com.karpen.skySys.SkySys
 api-version: '1.21'
 commands:
-  website:
-    usage: /website
-    description: Наш вебсайт
   check:
     usage: /check
     description: Вызвать игрока на проверку
@@ -15,4 +12,9 @@ commands:
     usage: /check-stop
     description: Остановить проверку
     permission: karpen.skySys.check
+    permission-message: У вас недостаточно прав
+  size:
+    usage: /size < min | normal | big>
+    description: Изменить размер игрока
+    permission: karpen.skySys.size
     permission-message: У вас недостаточно прав
