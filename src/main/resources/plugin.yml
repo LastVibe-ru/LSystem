@@ -18,3 +18,8 @@ commands:
     description: Изменить размер игрока
     permission: karpen.skySys.size
     permission-message: У вас недостаточно прав
+  vrestart:
+    usage: /vrestart
+    description: Перезагружает сервер с предупреждением
+    permission: karpen.skySys.vrestart
+    permission-message: У вас недостаточно прав
