@@ -5,6 +5,7 @@ import com.karpen.skySys.commands.MainCompleter;
 import com.karpen.skySys.commands.RestartCommand;
 import com.karpen.skySys.commands.SizeCommand;
 import com.karpen.skySys.listener.DeathListener;
+import com.karpen.skySys.listener.FirstLoginListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,7 @@ public final class SkySys extends JavaPlugin {
     private MainCompleter completer;
 
     private DeathListener deathListener;
+    private FirstLoginListener firstLoginListener;
 
     @Override
     public void onEnable() {
@@ -28,6 +30,7 @@ public final class SkySys extends JavaPlugin {
         completer = new MainCompleter();
 
         deathListener = new DeathListener();
+        firstLoginListener = new FirstLoginListener();
 
         Objects.requireNonNull(getCommand("check")).setExecutor(checkCommand);
         Objects.requireNonNull(getCommand("check-stop")).setExecutor(checkCommand);
@@ -40,6 +43,7 @@ public final class SkySys extends JavaPlugin {
         Objects.requireNonNull(getCommand("vrestart")).setTabCompleter(completer);
 
         Bukkit.getPluginManager().registerEvents(deathListener, this);
+        Bukkit.getPluginManager().registerEvents(firstLoginListener, this);
 
         getLogger().info("SkySys v1.0");
     }
