@@ -1,0 +1,7 @@
+# LSystem
+# Made for LastVibe with ❤️
+
+# Discord server status monitoring
+discord:
+  token: "YOUR_DISCORD_BOT_TOKEN"
+  channelId: YOUR_CHANNEL_ID

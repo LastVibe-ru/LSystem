@@ -1,5 +1,5 @@
 name: SkySys
-version: '1.1'
+version: '1.2'
 main: com.karpen.skySys.SkySys
 api-version: '1.21'
 commands:

@@ -6,7 +6,7 @@
 
     <groupId>com.karpen</groupId>
     <artifactId>SkySys</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>SkySys</name>
@@ -76,17 +76,26 @@
             <version>1.21.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.github.maximjsx</groupId>
             <artifactId>EntitySize</artifactId>
             <version>1.6.1</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>dev.majek</groupId>
             <artifactId>hexnicks</artifactId>
             <version>3.1.1</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.5.1</version>
         </dependency>
     </dependencies>
 </project>

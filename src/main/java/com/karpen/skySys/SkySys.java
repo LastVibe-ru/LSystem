@@ -6,6 +6,7 @@ import com.karpen.skySys.commands.RestartCommand;
 import com.karpen.skySys.commands.SizeCommand;
 import com.karpen.skySys.listener.DeathListener;
 import com.karpen.skySys.listener.FirstLoginListener;
+import com.karpen.skySys.managers.StatusManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,8 +23,12 @@ public final class SkySys extends JavaPlugin {
     private DeathListener deathListener;
     private FirstLoginListener firstLoginListener;
 
+    private StatusManager statusManager;
+
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         checkCommand = new CheckCommand(this);
         restartCommand = new RestartCommand(this);
         sizeCommand = new SizeCommand();
@@ -31,6 +36,8 @@ public final class SkySys extends JavaPlugin {
 
         deathListener = new DeathListener();
         firstLoginListener = new FirstLoginListener();
+
+        statusManager = new StatusManager(this, getConfig());
 
         Objects.requireNonNull(getCommand("check")).setExecutor(checkCommand);
         Objects.requireNonNull(getCommand("check-stop")).setExecutor(checkCommand);
@@ -51,5 +58,9 @@ public final class SkySys extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("SkySys v1.0");
+
+        if (statusManager != null){
+            statusManager.shutdown();
+        }
     }
 }
