@@ -37,7 +37,9 @@ public final class SkySys extends JavaPlugin {
         deathListener = new DeathListener();
         firstLoginListener = new FirstLoginListener();
 
-        statusManager = new StatusManager(this, getConfig());
+        if (getConfig().getBoolean("discord.using")){
+            statusManager = new StatusManager(this, getConfig());
+        }
 
         Objects.requireNonNull(getCommand("check")).setExecutor(checkCommand);
         Objects.requireNonNull(getCommand("check-stop")).setExecutor(checkCommand);

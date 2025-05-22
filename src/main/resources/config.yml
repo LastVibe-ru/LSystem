@@ -3,5 +3,6 @@
 
 # Discord server status monitoring
 discord:
+  using: true
   token: "YOUR_DISCORD_BOT_TOKEN"
   channelId: YOUR_CHANNEL_ID
